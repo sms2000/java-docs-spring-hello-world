@@ -13,8 +13,18 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+	@RequestMapping("/moo/boo")
+	String sayHello() {
+		return "!!! Hello World (/moo/boo) !!!! " + System.currentTimeMillis();
+	}
+
+	@RequestMapping("/moo")
+	String sayHello() {
+		return "!!! Hello World (/moo) !!!! " + System.currentTimeMillis();
+	}
+
 	@RequestMapping("/")
 	String sayHello() {
-		return "Hello World!";
+		return "!!! Hello World !!!! " + System.currentTimeMillis();
 	}
 }
