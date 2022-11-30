@@ -14,17 +14,17 @@ public class DemoApplication {
 	}
 
 	@RequestMapping("/moo/boo")
-	String sayHello() {
+	String answerMooBoo() {
 		return "!!! Hello World (/moo/boo) !!!! " + System.currentTimeMillis();
 	}
 
 	@RequestMapping("/moo")
-	String sayHello() {
+	String answerMoo() {
 		return "!!! Hello World (/moo) !!!! " + System.currentTimeMillis();
 	}
 
 	@RequestMapping("/")
-	String sayHello() {
+	String answerNo() {
 		return "!!! Hello World !!!! " + System.currentTimeMillis();
 	}
 }
