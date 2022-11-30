@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import java.util.*;
-import java.net.http.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -69,7 +68,7 @@ public class DemoApplication {
 	}
 
 	@RequestMapping("/")
-	String answerNo() {
+	String answerRoot() {
 		return "Counter: " + m_counter;
 	}
 }
