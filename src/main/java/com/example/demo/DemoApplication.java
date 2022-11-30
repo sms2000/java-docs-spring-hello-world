@@ -11,7 +11,7 @@ public class DemoApplication
 {
 	private static long m_counter = 0;
 	private static boolean m_posting = false;
-	private static const String m_targetUrl = "http://www.example.com";
+	private static final String m_targetUrl = "http://www.example.com";
 
 
 	public static void main(String[] args) 
@@ -62,7 +62,7 @@ public class DemoApplication
 	
 			httpClient.execute(httpPost);
 
-			System.out.println("Request executed. Response: " + );
+			System.out.println("Request executed");
 		} catch (Exception e) {
 			System.out.println("Error: " + e.Message);
 		}
