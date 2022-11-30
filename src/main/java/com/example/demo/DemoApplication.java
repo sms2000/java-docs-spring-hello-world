@@ -18,7 +18,7 @@ public class DemoApplication
 	private static final String m_targetUrl = "http://www.example.com";
 
 
-	public static void main(String[] args) 
+	public static void main (String[] args)
 	{
 		Timer t = new Timer();
 		TimerTask tt = new TimerTask() 
