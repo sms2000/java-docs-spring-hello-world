@@ -7,24 +7,72 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class DemoApplication {
+public class DemoApplication 
+{
+	private static long m_counter = 0;
+	private static boolean m_posting = false;
+	private static const String m_targetUrl = "http://www.example.com";
 
-	public static void main(String[] args) {
+
+	public static void main(String[] args) 
+	{
+		Timer t = new Timer();
+		TimerTask tt = new TimerTask() 
+		{
+			@Override
+			public void run() 
+			{
+				everyPeriodDo();
+			};
+		};
+
+		t.schedule(tt, 0, 60 * 1000);
+
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@RequestMapping("/moo/boo")
-	String answerMooBoo() {
-		return "!!! Hello World (/moo/boo) !!!! " + System.currentTimeMillis();
+	private static void everyPeriodDo() 
+	{
+		m_counter++;
+
+		if (!m_posting) 
+		{
+			m_posting = true;
+
+			Thread newThread = new Thread(() -> {
+				posting();
+			});
+
+			newThread.start();
+		}
 	}
 
-	@RequestMapping("/moo")
-	String answerMoo() {
-		return "!!! Hello World (/moo) !!!! " + System.currentTimeMillis();
+	private static void everyPeriodDo() 
+	{
+		String body = "{\"Counter\" : \"" + m_counter + "\"}";
+
+		try {
+			HttpClient httpClient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(m_targetUrl);
+			httpPost.setHeader("Content-type", "application/json");
+
+			StringEntity stringEntity = new StringEntity(body);
+			httpPost.getRequestLine();
+			httpPost.setEntity(stringEntity);
+	
+			httpClient.execute(httpPost);
+
+			System.out.println("Request executed. Response: " + );
+		} catch (Exception e) {
+			System.out.println("Error: " + e.Message);
+		}
+
+		m_posting = false;
 	}
 
 	@RequestMapping("/")
-	String answerNo() {
-		return "!!! Hello World !!!! " + System.currentTimeMillis();
+	String answerNo() 
+	{
+		return "Counter: " + m_counter;
 	}
 }
