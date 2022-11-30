@@ -1,8 +1,10 @@
 package com.example.demo;
 
+import java.lang.*;
 import java.util.*;
-import java.net.http;
+import java.net.http.*;
 import org.apache.http.client.methods;
+import org.apache.http.entity;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -68,7 +70,7 @@ public class DemoApplication
 
 			System.out.println("Request executed");
 		} catch (Exception e) {
-			System.out.println("Error: " + e.Message);
+			System.out.println("Error: " + e.toString());
 		}
 
 		m_posting = false;
