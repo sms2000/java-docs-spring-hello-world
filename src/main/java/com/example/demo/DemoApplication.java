@@ -1,10 +1,10 @@
 package com.example.demo;
 
-import java.lang.*;
 import java.util.*;
 import java.net.http.*;
-import org.apache.http.client.methods;
-import org.apache.http.entity;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,21 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class DemoApplication 
-{
+public class DemoApplication {
 	private static long m_counter = 0;
 	private static boolean m_posting = false;
 	private static final String m_targetUrl = "http://www.example.com";
 
-
-	public static void main (String[] args)
-	{
+	public static void main(String[] args) {
 		Timer t = new Timer();
-		TimerTask tt = new TimerTask() 
-		{
+		TimerTask tt = new TimerTask() {
 			@Override
-			public void run() 
-			{
+			public void run() {
 				everyPeriodDo();
 			};
 		};
@@ -37,12 +32,10 @@ public class DemoApplication
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	private static void everyPeriodDo() 
-	{
+	private static void everyPeriodDo() {
 		m_counter++;
 
-		if (!m_posting) 
-		{
+		if (!m_posting) {
 			m_posting = true;
 
 			Thread newThread = new Thread(() -> {
@@ -53,19 +46,18 @@ public class DemoApplication
 		}
 	}
 
-	private static void posting() 
-	{
+	private static void posting() {
 		String body = "{\"Counter\" : \"" + m_counter + "\"}";
 
 		try {
-			HttpClient httpClient = new DefaultHttpClient();
+			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(m_targetUrl);
 			httpPost.setHeader("Content-type", "application/json");
 
 			StringEntity stringEntity = new StringEntity(body);
 			httpPost.getRequestLine();
 			httpPost.setEntity(stringEntity);
-	
+
 			httpClient.execute(httpPost);
 
 			System.out.println("Request executed");
@@ -77,8 +69,7 @@ public class DemoApplication
 	}
 
 	@RequestMapping("/")
-	String answerNo() 
-	{
+	String answerNo() {
 		return "Counter: " + m_counter;
 	}
 }
