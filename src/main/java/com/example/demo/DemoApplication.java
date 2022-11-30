@@ -1,5 +1,9 @@
 package com.example.demo;
 
+import java.util.*;
+import java.net.http;
+import org.apache.http.client.methods;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +51,7 @@ public class DemoApplication
 		}
 	}
 
-	private static void everyPeriodDo() 
+	private static void posting() 
 	{
 		String body = "{\"Counter\" : \"" + m_counter + "\"}";
 
