@@ -19,7 +19,8 @@ public class DemoApplication {
 	private static String m_error;
 
 	// private static final String m_targetUrl = "https://46.117.183.222:8765";
-	private static final String m_targetUrl = "http://46.117.183.222:8765";
+	private static final String m_targetUrl = "http://46.117.183.222:8764"; // DATASAFE SERVER 8764
+	// private static final String m_targetUrl = "http://46.117.183.222:8765";
 	// private static final String m_targetUrl = "http://10.100.102.159:8765";
 	// private static final String m_targetUrl = "http://127.0.0.1:8765";
 
