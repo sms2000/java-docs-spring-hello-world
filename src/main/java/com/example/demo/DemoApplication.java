@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoApplication {
 	private static long m_counter = 0;
 	private static boolean m_posting = false;
-	private static final String m_targetUrl = "https://46.117.83.222:8765";
-	// private static final String m_targetUrl = "http://46.117.83.222:8765";
+
+	private static String m_error;
+
+	// private static final String m_targetUrl = "https://46.117.83.222:8765";
+	private static final String m_targetUrl = "http://46.117.83.222:8765";
 	// private static final String m_targetUrl = "http://10.100.102.159:8765";
 	// private static final String m_targetUrl = "http://127.0.0.1:8765";
 
@@ -63,8 +66,10 @@ public class DemoApplication {
 			httpClient.execute(httpPost);
 
 			System.out.println("Request executed");
+			m_error = null;
 		} catch (Exception e) {
-			System.out.println("Error: " + e.toString());
+			System.out.println("Error: " + e.getMessage());
+			m_error = "Error: " + e.getMessage();
 		}
 
 		m_posting = false;
@@ -72,6 +77,10 @@ public class DemoApplication {
 
 	@RequestMapping("/")
 	String answerRoot() {
+		if (m_error != null) {
+			return m_error;
+		}
+
 		return "Counter: " + m_counter;
 	}
 }
