@@ -18,11 +18,13 @@ public class DemoApplication {
 
 	private static String m_error;
 
-	// private static final String m_targetUrl = "https://46.117.183.222:8765";
-	private static final String m_targetUrl = "http://46.117.183.222:8764"; // DATASAFE SERVER 8764
-	// private static final String m_targetUrl = "http://46.117.183.222:8765";
-	// private static final String m_targetUrl = "http://10.100.102.159:8765";
-	// private static final String m_targetUrl = "http://127.0.0.1:8765";
+	private static final String[] m_targetUrl = {
+			"http://ogp1967.ogp.cloudns.ph:8764", // DATASAFE SERVER 8764
+			"http://46.117.183.222:8764", // DATASAFE SERVER 8764
+			"http://46.117.183.222:8765",
+			"http://10.100.102.159:8765",
+			"http://127.0.0.1:8765"
+	};
 
 	public static void main(String[] args) {
 		Timer t = new Timer();
@@ -55,22 +57,25 @@ public class DemoApplication {
 	private static void posting() {
 		String body = "{\"Counter\" : \"" + m_counter + "\"}";
 
-		try {
-			DefaultHttpClient httpClient = new DefaultHttpClient();
-			HttpPost httpPost = new HttpPost(m_targetUrl);
-			httpPost.setHeader("Content-type", "application/json");
+		for (String url : m_targetUrl) {
+			try {
+				DefaultHttpClient httpClient = new DefaultHttpClient();
+				HttpPost httpPost = new HttpPost(url);
+				httpPost.setHeader("Content-type", "application/json");
 
-			StringEntity stringEntity = new StringEntity(body);
-			httpPost.getRequestLine();
-			httpPost.setEntity(stringEntity);
+				StringEntity stringEntity = new StringEntity(body);
+				httpPost.getRequestLine();
+				httpPost.setEntity(stringEntity);
 
-			httpClient.execute(httpPost);
+				httpClient.execute(httpPost);
 
-			System.out.println("Request executed");
-			m_error = null;
-		} catch (Exception e) {
-			System.out.println("Error: " + e.getMessage());
-			m_error = "Error: " + e.getMessage();
+				System.out.println("Request succeeded for " + url);
+				m_error = null;
+				break;
+			} catch (Exception e) {
+				System.out.println("Error: " + e.getMessage());
+				m_error = "Error: " + e.getMessage();
+			}
 		}
 
 		m_posting = false;
